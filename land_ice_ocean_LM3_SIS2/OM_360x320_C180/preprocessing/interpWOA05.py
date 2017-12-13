@@ -19,7 +19,8 @@ S=state(grid=grid)
 #zi=np.zeros(nk+1)
 #zi[1:]=np.cumsum(-dz)
 # Analysis vertical  grid
-zi=-nc.Dataset('../../../ice_ocean_SIS/OM4_025/INPUT/vgrid_75_2m.nc').variables['zw'][:]
+#zi=-nc.Dataset('../../../ice_ocean_SIS/OM4_025/INPUT/vgrid_75_2m.nc').variables['zw'][:]
+zi=-nc.Dataset('../../../land_ice_ocean_LM3_SIS2/OM_360x320_C180/INPUT/vgrid_75_2m.nc').variables['zw'][:]
 nk=zi.shape[0]-1
 
 zb =np.zeros((nk+1,S.grid.jm,S.grid.im))
