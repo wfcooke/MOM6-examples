@@ -23,11 +23,12 @@ showenv:
 
 input: ocean_hgrid.nc topog.nc basin_codes.nc
 
-forcing: salt_restore.nc seawifs_1998-2006_smoothed_2X.nc precip_factor.nc
+#forcing: salt_restore.nc seawifs_1998-2006_smoothed_2X.nc precip_factor.nc
+forcing: salt_restore.nc precip_factor.nc
 
 obs: WOA05_ptemp_salt_monthly.nc WOA05_ptemp_salt_annual.nc
 
-mosaic: C180_mosaic/mosaic.tar C96_mosaic/mosaic.tar C192_mosaic/mosaic.tar
+mosaic: C180_mosaic/mosaic.tar C96_mosaic/mosaic.tar C192_mosaic/mosaic.tar C384_mosaic/mosaic.tar
 
 # Grid
 
@@ -66,9 +67,9 @@ salt_restore.nc: ocean_hgrid.nc topog.nc /archive/gold/datasets/obs/WOA05_pottem
 precip_factor.nc: ocean_hgrid.nc  local
 	unlimit stacksize; setenv PYTHONPATH ./local/lib/python; python create_precip_scale2d.py
 
-seawifs_1998-2006_smoothed_2X.nc: ocean_hgrid.nc topog.nc /archive/gold/datasets/global/siena_201204/INPUT/seawifs_1998-2006_GOLD_smoothed_2X.nc interpCHL.py local
-	unlimit stacksize; setenv PYTHONPATH ./local/lib/python; sleep 5 ; python interpCHL.py
-	ncatted -h -a modulo,TIME,c,c,' ' seawifs_1998-2006_smoothed_2X.nc
+#seawifs_1998-2006_smoothed_2X.nc: ocean_hgrid.nc topog.nc /archive/gold/datasets/global/siena_201204/INPUT/seawifs_1998-2006_GOLD_smoothed_2X.nc interpCHL.py local
+#	unlimit stacksize; setenv PYTHONPATH ./local/lib/python; sleep 5 ; python interpCHL.py
+#	ncatted -h -a modulo,TIME,c,c,' ' seawifs_1998-2006_smoothed_2X.nc
 
 #tidal_amplitude.nc: DATA interpTides.py local
 #	unlimit stacksize; setenv PYTHONPATH ./local/lib/python; python interpTides.py
@@ -81,6 +82,9 @@ C96_mosaic/mosaic.tar: topog.nc
 
 C192_mosaic/mosaic.tar: topog.nc
 	(cd C192_mosaic;./create_c192_mosaic.csh)
+
+C384_mosaic/mosaic.tar: topog.nc
+	(cd C384_mosaic;./create_c384_mosaic.csh)
 
 
 DATA: tpxo7_atlas_netcdf.tar.Z GEBCO_08_v2.nc

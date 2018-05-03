@@ -1,6 +1,6 @@
 #!/bin/csh 
 
-module load fre
+module load fre/bronx-10
 
 
 ln -s ../ocean_hgrid.nc .
